@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .menu-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 90%;
+      max-width: 600px; /* Keeps it centered and not too wide on large screens */
+      height: 90%;
+      border: 2px solid #333;
+      background: #1e1e1e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #ff5722;
+      color: #ffffff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background-color: #ff784e;
+    }
+
+    .nav-button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    #prev-btn {
+      left: 10px;
+    }
+
+    #next-btn {
+      right: 10px;
+    }
+
+    .menu-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .menu-content img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .menu-title {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .menu-container {
+        width: 95%;
+        height: 85%;
+      }
+
+      .nav-button {
+        font-size: 16px;
+        padding: 8px 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .menu-container {
+        width: 100%;
+        height: 80%;
+      }
+
+      .nav-button {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+
+      .menu-title {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <button id="prev-btn" class="nav-button">⬅</button>
+    <div id="menu-content" class="menu-content"></div>
+    <button id="next-btn" class="nav-button">➡</button>
+  </div>
+
+  <script>
+    const menuContent = document.getElementById("menu-content");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    const menuPages = [
+      `<div>
+        <a href="https://ibb.co/d4FTzJcm">
+          <img src="https://i.ibb.co/1G1gwJnz/65141990543.png" alt="Menu 1">
+        </a>
+        <div class="menu-title">Menu 1</div>
+      </div>`,
+      `<div>
+        <a href="https://ibb.co/DgfhTjRT">
+          <img src="https://i.ibb.co/84gqtQ7t/49640487488.png" alt="Menu 2">
+        </a>
+        <div class="menu-title">Menu 2</div>
+      </div>`
+    ];
+
+    let currentPage = 0;
+
+    function updateMenu() {
+      menuContent.innerHTML = menuPages[currentPage];
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage === menuPages.length - 1;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 0) currentPage--;
+      updateMenu();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentPage < menuPages.length - 1) currentPage++;
+      updateMenu();
+    });
+
+    // Initialize the menu with the first page
+    updateMenu();
+  </script>
+</body>
+</html>
